@@ -2,233 +2,249 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>🙏 고민·기도제목 → 구절 추천 + 기도문 예시</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>🙏 고민·기도제목 → 구절 추천 + 기도문</title>
   <style>
-    :root{
-      --bg:#f6f8ff;
-      --card:#ffffff;
-      --text:#111827;
-      --muted:#6b7280;
-      --border:#e5e7eb;
-      --primary:#2563eb;
-      --primary2:#06b6d4;
-      --shadow: 0 10px 30px rgba(15,23,42,.08);
-      --radius: 18px;
-      font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --radius: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
     }
-    body{
-      margin:0;
-      background:
-        radial-gradient(900px 500px at 20% 10%, rgba(37,99,235,.18), transparent 60%),
-        radial-gradient(900px 500px at 90% 20%, rgba(6,182,212,.16), transparent 55%),
-        linear-gradient(180deg, #fbfdff, var(--bg));
-      color:var(--text);
-      min-height:100vh;
-    }
-    .wrap{ max-width: 980px; margin: 0 auto; padding: 26px 16px 70px; }
-    .hero{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-end; }
-    h1{ margin:0; font-size: 22px; letter-spacing:-.2px;}
-    .sub{ margin:6px 0 0; color:var(--muted); font-size:14px; line-height:1.5;}
-    .pill{
-      font-size:12px; color:#0f172a;
-      border:1px solid var(--border); padding:8px 10px; border-radius:999px;
-      background: rgba(255,255,255,.90);
-      box-shadow: 0 6px 18px rgba(15,23,42,.06);
-      display:inline-flex; gap:8px; align-items:center;
-      user-select:none;
-    }
-    .card{
-      margin-top:14px;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px;
-    }
-    .card h2{ margin:0 0 10px; font-size:15px; letter-spacing:-.2px;}
-
-    textarea{
-      width:100%;
-      box-sizing:border-box;
-      min-height: 150px;
-      resize: vertical;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: #fbfdff;
+    
+    body {
+      margin: 0;
+      background-color: var(--bg);
       color: var(--text);
-      padding: 12px 12px;
-      line-height:1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 600px; /* 모바일에 최적화된 너비 */
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+    }
+
+    /* 헤더 부분 깔끔하게 */
+    .hero {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #1e293b;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      background: #f1f5f9;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+
+    /* 메인 카드 */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      padding: 24px 20px;
+      margin-bottom: 20px;
+    }
+    
+    .card h2 { 
+      margin: 0 0 12px; 
+      font-size: 16px; 
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 140px;
+      resize: vertical;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      color: var(--text);
+      padding: 16px;
+      font-size: 15px;
+      line-height: 1.6;
       outline: none;
+      transition: all 0.2s;
     }
-    textarea:focus{ border-color: rgba(37,99,235,.45); box-shadow: 0 0 0 4px rgba(37,99,235,.12); }
+    textarea:focus { 
+      border-color: var(--primary); 
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); 
+    }
+    textarea::placeholder { color: #94a3b8; }
 
-    .btnbar{ display:flex; gap:10px; margin-top: 12px; flex-wrap:wrap; }
-    button{
-      appearance:none;
-      border:1px solid var(--border);
-      background:#fff;
-      color:var(--text);
-      padding: 11px 14px;
+    /* 모바일에서 버튼 꽉 차게 */
+    .btnbar { 
+      display: flex; 
+      gap: 10px; 
+      margin-top: 16px; 
+    }
+    button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+      padding: 14px;
       border-radius: 14px;
-      cursor:pointer;
-      font-weight:800;
-      letter-spacing:-.1px;
-      display:inline-flex; gap:8px; align-items:center;
-      box-shadow: 0 8px 18px rgba(15,23,42,.06);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      display: inline-flex; 
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      flex: 1; /* 버튼들이 동일한 비율로 꽉 차게 */
     }
-    button.primary{
-      border:none;
-      background: linear-gradient(135deg, var(--primary), var(--primary2));
-      color:#ffffff;
-      box-shadow: 0 12px 28px rgba(37,99,235,.22);
+    button:active { transform: scale(0.98); }
+    button.primary {
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      flex: 2; /* 추천받기 버튼을 좀 더 넓게 */
     }
-    button:disabled{ opacity:.6; cursor:not-allowed; }
+    button.primary:hover { background: var(--primary-hover); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    .notice{
-      margin-top:10px;
-      color:#374151;
-      font-size:12px;
-      line-height:1.55;
-      border:1px solid #dbe7ff;
-      background: #f7fbff;
-      padding:10px 12px;
-      border-radius: 14px;
+    .status {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--muted);
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      gap: 8px;
+      font-weight: 500;
     }
-    .notice b{ color:#0f172a; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; }
+    .dot.ok { background: #10b981; }
+    .dot.warn { background: #f59e0b; }
+    .dot.bad { background: #ef4444; }
 
-    .status{
-      margin-top:12px;
-      font-size:13px;
-      color:#111827;
-      display:flex; align-items:center; gap:10px;
-    }
-    .dot{ width:10px; height:10px; border-radius:999px; background:#cbd5e1; }
-    .dot.ok{ background:#10b981; }
-    .dot.warn{ background:#f59e0b; }
-    .dot.bad{ background:#ef4444; }
-
-    .divider{
+    .divider {
       height: 1px;
       background: var(--border);
-      margin: 14px 0 2px;
-      border-radius: 999px;
+      margin: 24px 0;
     }
 
-    .sectionTitle{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px; flex-wrap:wrap;
-      margin-top: 4px;
-    }
-    .sectionTitle .hint{ color:var(--muted); font-size:12px; }
-
-    .out{ margin-top: 12px; display:flex; flex-direction:column; gap:10px; }
-    .verse{
-      border:1px solid var(--border);
-      background:#ffffff;
+    /* 결과 디자인 */
+    .out { margin-top: 12px; display: flex; flex-direction: column; gap: 12px; }
+    .verse {
+      background: #f8fafc;
       border-radius: 16px;
-      padding: 12px;
+      padding: 18px;
     }
-    .ref{ font-weight:900; letter-spacing:-.1px; }
-    .text{ margin-top:8px; line-height:1.65; color:#0f172a; }
-    .why{ margin-top:8px; color:#374151; line-height:1.65; font-size:13px; }
-    .meta{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; color:var(--muted); font-size:12px; }
-    .chip{ padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:#f9fafb; }
-
-    .bigbox{
-      border:1px solid var(--border);
-      background:#ffffff;
-      border-radius: 16px;
-      padding: 12px;
-      line-height:1.75;
-      white-space:pre-wrap;
+    .ref { font-weight: 800; color: var(--primary); font-size: 16px; margin-bottom: 8px; }
+    .text { font-size: 15px; line-height: 1.6; color: var(--text); margin-bottom: 12px; font-weight: 500; }
+    .why { color: #475569; line-height: 1.6; font-size: 14px; background: #ffffff; padding: 12px; border-radius: 12px; margin-top: 8px;}
+    
+    .bigbox {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 15px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      color: #1e293b;
+      margin-top: 12px;
     }
 
-    .actions{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; }
-    .small{ font-size:12px; padding: 9px 12px; border-radius: 12px; }
+    .actions { display: flex; gap: 10px; margin-top: 16px; }
+    .actions button { padding: 12px; font-size: 14px; background: #f1f5f9; border: none; color: #475569; }
 
-    .toast{
+    .toast {
       position: fixed;
       left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
-      background: rgba(17,24,39,.92);
-      color:#fff;
-      padding: 10px 12px;
+      bottom: 30px;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(15, 23, 42, 0.9);
+      color: #fff;
+      padding: 12px 24px;
       border-radius: 999px;
-      font-size: 12px;
-      box-shadow: 0 10px 26px rgba(0,0,0,.18);
+      font-size: 14px;
+      font-weight: 500;
       opacity: 0;
       pointer-events: none;
-      transition: opacity .2s ease;
-      max-width: calc(100vw - 24px);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      transition: all 0.3s ease;
     }
-    .toast.show{ opacity: 1; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* 아주 작은 화면 대응 */
+    @media (max-width: 380px) {
+      .btnbar { flex-direction: column; }
+      button { width: 100%; }
+      .actions { flex-direction: column; }
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <div class="hero">
-      <div>
-        <h1>🙏 고민·기도제목 → 구절 추천 + 기도문 예시</h1>
-        <p class="sub">📖 구절은 AI가 “참조만” 고르고, 본문은 API에서 직접 가져옵니다.</p>
-      </div>
-      <div class="pill">🔐 입력 내용은 저장되지 않아요 · Google Gemini로 답변됩니다</div>
+      <h1>🙏 마음을 잇는 기도</h1>
+      <div class="pill">보안 적용됨 · 저장되지 않음</div>
     </div>
 
     <div class="card">
-      <h2>🕊️ 고민/기도제목</h2>
-      <textarea id="inputText" placeholder="예) 요즘 불안이 계속되고, 선택을 앞두고 두려움이 큽니다. 가족에게 말이 날카로워져서 마음이 무겁습니다."></textarea>
+      <h2>🕊️ 나의 고민/기도제목</h2>
+      <textarea id="inputText" placeholder="예) 요즘 선택을 앞두고 두려움이 큽니다. 가족에게 말이 날카로워져서 마음이 무겁습니다. 평안을 얻고 싶어요."></textarea>
 
       <div class="btnbar">
-        <button class="primary" id="btnGo">📖 구절 추천받기</button>
+        <button id="btnClear">🧹 지우기</button>
         <button id="btnSample">✨ 예시</button>
-        <button id="btnClear">🧹 비우기</button>
-      </div>
-
-      <div class="notice">
-        🔐 <b>보안 안내</b><br/>
-        개인정보/민감정보는 입력하지 마세요.<br/>
-        생성 결과는 초안이며, 최종 제출 전 반드시 검토·수정하세요.
+        <button class="primary" id="btnGo">📖 추천받기</button>
       </div>
 
       <div class="status" id="status">
         <span class="dot"></span>
-        <span id="statusText">대기 중</span>
+        <span id="statusText">말씀과 기도를 기다리고 있어요</span>
       </div>
 
       <div class="divider"></div>
 
-      <div class="sectionTitle">
-        <h2 style="margin:12px 0 0;">📖 구절 추천 결과</h2>
-        <div class="hint">구절 본문은 API에서 직접 불러옵니다.</div>
-      </div>
+      <h2>📖 추천 성경 구절</h2>
       <div class="out" id="outputVerses">
-        <div class="verse"><div class="why">아직 결과가 없습니다.</div></div>
+        <div class="verse"><div class="why" style="background:transparent; padding:0;">아직 결과가 없습니다.</div></div>
       </div>
 
       <div class="actions">
-        <button class="small" id="btnCopyAll" disabled>📋 전체(구절+기도문) 복사</button>
-        <button class="small" id="btnDownloadAll" disabled>⬇️ TXT 저장</button>
+        <button id="btnCopyAll" disabled>📋 결과 전체 복사하기</button>
       </div>
 
       <div class="divider"></div>
 
-      <div class="sectionTitle">
-        <h2 style="margin:12px 0 0;">🙏 기도문 예시</h2>
-        <div class="hint">“내 고민 + 말씀”을 붙들고 기도하도록 구성됩니다.</div>
-      </div>
+      <h2>🙏 기도문</h2>
       <div class="out" id="outputPrayer">
-        <div class="verse"><div class="why">아직 결과가 없습니다.</div></div>
+        <div class="verse"><div class="why" style="background:transparent; padding:0;">아직 결과가 없습니다.</div></div>
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast">복사됨</div>
+  <div class="toast" id="toast">복사되었습니다!</div>
 
 <script>
   const WORKER_BASE = "https://bible-helper.hdh1231.workers.dev";
@@ -245,7 +261,6 @@
   const btnSample = el("btnSample");
   const btnClear = el("btnClear");
   const btnCopyAll = el("btnCopyAll");
-  const btnDownloadAll = el("btnDownloadAll");
 
   let latestPayload = null;
 
@@ -253,51 +268,46 @@
     statusDot.className = "dot" + (kind ? " " + kind : "");
     statusText.textContent = text;
   }
+  
   function escapeHtml(s){
     return (s ?? "").toString().replace(/[&<>"']/g, (c)=>({
       "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
     }[c]));
   }
+  
   function showToast(msg){
     toast.textContent = msg;
     toast.classList.add("show");
-    setTimeout(()=>toast.classList.remove("show"), 900);
+    setTimeout(()=>toast.classList.remove("show"), 1500);
   }
 
   function renderAll(data){
     const recs = data?.recommendations || [];
     outputVerses.innerHTML = "";
+    
     if(!recs.length){
-      outputVerses.innerHTML = `<div class="verse"><div class="why">결과가 비어 있습니다. 입력을 조금 더 구체화해 주세요.</div></div>`;
+      outputVerses.innerHTML = `<div class="verse"><div class="why" style="background:transparent; padding:0;">결과가 비어 있습니다. 입력을 조금 더 구체화해 주세요.</div></div>`;
     } else {
       recs.forEach((it) => {
-        const note = it.note ? `<div class="why">⚠️ ${escapeHtml(it.note)}</div>` : "";
         outputVerses.insertAdjacentHTML("beforeend", `
           <div class="verse">
             <div class="ref">📌 ${escapeHtml(it.reference)}</div>
             ${it.text ? `<div class="text">“${escapeHtml(it.text)}”</div>` : ``}
-            ${it.reason ? `<div class="why">💡 <b>이유</b>: ${escapeHtml(it.reason)}</div>` : ``}
-            ${it.application ? `<div class="why">🧭 <b>적용</b>: ${escapeHtml(it.application)}</div>` : ``}
-            ${note}
-            <div class="meta">
-              ${(it.tags||[]).slice(0,6).map(t => `<span class="chip">#${escapeHtml(t)}</span>`).join("")}
-            </div>
+            ${it.reason ? `<div class="why">💡 <b>위로의 말</b>: ${escapeHtml(it.reason)}</div>` : ``}
+            ${it.application ? `<div class="why">🧭 <b>작은 실천</b>: ${escapeHtml(it.application)}</div>` : ``}
           </div>
         `);
       });
     }
 
     const prayer = (data?.prayer_text || "").trim();
-    const refs = data?.references || [];
     outputPrayer.innerHTML = "";
+    
     if(!prayer){
-      outputPrayer.innerHTML = `<div class="verse"><div class="why">기도문 결과가 비어 있습니다.</div></div>`;
+      outputPrayer.innerHTML = `<div class="verse"><div class="why" style="background:transparent; padding:0;">기도문 결과가 비어 있습니다.</div></div>`;
     } else {
-      const refLine = refs.length ? refs.join(" · ") : "";
       outputPrayer.innerHTML = `
-        <div class="verse">
-          <div class="ref">🙏 기도문 예시</div>
-          ${refLine ? `<div class="why">📌 붙든 말씀: ${escapeHtml(refLine)}</div>` : ``}
+        <div class="verse" style="background:transparent; padding:0; border:none;">
           <div class="bigbox">${escapeHtml(prayer)}</div>
         </div>
       `;
@@ -305,41 +315,25 @@
 
     const ok = recs.length && prayer.length;
     btnCopyAll.disabled = !ok;
-    btnDownloadAll.disabled = !ok;
   }
 
   function buildAllText(data){
     const recs = data?.recommendations || [];
-    const refs = data?.references || [];
     const prayer = (data?.prayer_text || "").trim();
 
-    let s = "성경구절 추천\n\n";
-    recs.forEach((it, i) => {
-      s += `${i+1}. ${it.reference}\n`;
-      if (it.text) s += `- 본문: ${it.text}\n`;
-      if (it.reason) s += `- 이유: ${it.reason}\n`;
-      if (it.application) s += `- 적용: ${it.application}\n`;
-      if (it.tags?.length) s += `- 태그: ${it.tags.map(t => "#"+t).join(" ")}\n`;
-      if (it.note) s += `- 참고: ${it.note}\n`;
+    let s = "[추천 성경 구절]\n\n";
+    recs.forEach((it) => {
+      s += `📌 ${it.reference}\n`;
+      if (it.text) s += `"${it.text}"\n\n`;
+      if (it.reason) s += `- 위로의 말: ${it.reason}\n`;
+      if (it.application) s += `- 작은 실천: ${it.application}\n`;
       s += "\n";
     });
 
-    s += "\n기도문 예시\n";
-    if (refs.length) s += `붙든 말씀: ${refs.join(" · ")}\n`;
-    s += "\n" + prayer;
+    s += "------------------\n\n[나를 위한 기도문]\n\n";
+    s += prayer;
 
     return s.trim();
-  }
-
-  function downloadTxt(filename, content){
-    const blob = new Blob([content], {type:"text/plain;charset=utf-8"});
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(a.href);
   }
 
   async function postJSON(url, payload){
@@ -350,56 +344,56 @@
     });
     if(!res.ok){
       const t = await res.text();
-      throw new Error(`서버 오류(${res.status}): ${t.slice(0,200)}`);
+      throw new Error(`서버 오류(${res.status}): ${t.slice(0,100)}...`);
     }
     return await res.json();
   }
 
   btnSample.addEventListener("click", () => {
-    inputText.value =
-`요즘 마음이 계속 불안합니다.
-중요한 결정을 앞두고 확신이 없고, 실패할까 두렵습니다.
-가족에게 말이 날카로워져서 관계도 어색해졌습니다.
-하나님 앞에서 다시 평안과 지혜를 얻고 싶습니다.`;
+    inputText.value = `요즘 마음이 계속 불안합니다.\n중요한 결정을 앞두고 확신이 없고, 실패할까 두렵습니다.\n하나님 앞에서 다시 평안과 지혜를 얻고 싶습니다.`;
     inputText.focus();
   });
 
   btnClear.addEventListener("click", () => {
     inputText.value = "";
     latestPayload = null;
-    outputVerses.innerHTML = `<div class="verse"><div class="why">아직 결과가 없습니다.</div></div>`;
-    outputPrayer.innerHTML = `<div class="verse"><div class="why">아직 결과가 없습니다.</div></div>`;
+    outputVerses.innerHTML = `<div class="verse"><div class="why" style="background:transparent; padding:0;">아직 결과가 없습니다.</div></div>`;
+    outputPrayer.innerHTML = `<div class="verse"><div class="why" style="background:transparent; padding:0;">아직 결과가 없습니다.</div></div>`;
     btnCopyAll.disabled = true;
-    btnDownloadAll.disabled = true;
-    setStatus("", "대기 중");
+    setStatus("", "말씀과 기도를 기다리고 있어요");
   });
 
   btnGo.addEventListener("click", async () => {
     const text = inputText.value.trim();
     if(!text){
-      setStatus("warn","내용을 입력해 주세요.");
+      setStatus("warn","내용을 먼저 입력해 주세요!");
       inputText.focus();
       return;
     }
 
     btnGo.disabled = true;
     btnCopyAll.disabled = true;
-    btnDownloadAll.disabled = true;
-    setStatus("", "📖 추천 생성 중…(구절 + 기도문)");
+    setStatus("", "AI가 기도문과 구절을 찾고 있습니다...");
 
     try{
-      const systemPrompt = `너는 따뜻한 기독교 목회자야. 사용자의 고민(기도제목)을 듣고, 가장 알맞은 성경 구절과 기도문을 아래 JSON 규칙에 맞게 작성해줘. 본문(text)도 꼭 채워줘.
+      const systemPrompt = `너는 따뜻한 기독교 목회자야. 사용자의 고민(기도제목)을 듣고, 가장 알맞은 성경 구절과 기도문을 아래 JSON 규칙에 맞게 작성해줘.
+
+      [절대 지켜야 할 규칙]
+      1. 토큰 낭비를 막기 위해 답변을 간결하게 해.
+      2. 기도문(prayer_text)은 가장 알맞은 성경구절을 인용해서 기도해.
+      3. 구절 추천(recommendations)은 고민의 깊이에 따라 1개에서 최대 3개까지 추천해 줘. (해시태그 절대 금지)
+      4. 본문(text)과 이유(reason), 적용(application)도 간단하게.
+      
       {
         "recommendations": [
           {
             "reference": "시편 23:1",
             "text": "여호와는 나의 목자시니 내게 부족함이 없으리로다",
             "reason": "마음이 불안할 때 하나님이 지켜주심을 기억하게 합니다.",
-            "application": "모든 것을 하나님께 맡기는 연습을 해보세요.",
-            "tags": ["위로", "평안"]
+            "application": "모든 것을 하나님께 맡기는 연습을 해보세요."
           }
         ],
-        "prayer_text": "사랑의 하나님, 지금 제 마음이...",
+        "prayer_text": "사랑의 하나님, 제 마음을 지켜주세요. 예수님의 이름으로 기도합니다. 아멘.",
         "references": ["시편 23:1"]
       }
       반드시 마크다운 기호 없이 순수한 JSON 형식으로만 응답해.`;
@@ -414,13 +408,13 @@
 
       latestPayload = data;
       renderAll(data);
-      setStatus("ok","완료 ✅");
+      setStatus("ok","완성되었습니다! ✨");
       
     }catch(err){
       console.error(err);
-      setStatus("bad","실패 ❌ (AI 응답 지연 또는 오류)");
-      outputVerses.innerHTML = `<div class="verse"><div class="why">${escapeHtml(err.message || err)}</div></div>`;
-      outputPrayer.innerHTML = `<div class="verse"><div class="why">기도문을 생성하지 못했습니다.</div></div>`;
+      setStatus("bad","오류가 발생했습니다 😢");
+      outputVerses.innerHTML = `<div class="verse"><div class="why" style="color:red;">앗, 일시적인 오류예요. 다시 시도해 주세요!</div></div>`;
+      outputPrayer.innerHTML = ``;
       latestPayload = null;
     }finally{
       btnGo.disabled = false;
@@ -431,16 +425,10 @@
     if(!latestPayload) return;
     try{
       await navigator.clipboard.writeText(buildAllText(latestPayload));
-      showToast("전체 복사 ✅");
+      showToast("클립보드에 복사되었습니다 ✅");
     }catch{
       showToast("복사 실패 ❌");
     }
-  });
-
-  btnDownloadAll.addEventListener("click", () => {
-    if(!latestPayload) return;
-    downloadTxt("verses_and_prayer.txt", buildAllText(latestPayload));
-    showToast("저장 ✅");
   });
 </script>
 </body>
