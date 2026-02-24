@@ -18,7 +18,7 @@
       --radius: 20px;
       font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
     }
-    
+   
     body {
       margin: 0;
       background-color: var(--bg);
@@ -26,13 +26,11 @@
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
-
     .wrap {
       max-width: 600px;
       margin: 0 auto;
       padding: 20px 16px 40px;
     }
-
     .hero {
       text-align: center;
       margin-bottom: 24px;
@@ -56,7 +54,6 @@
       font-weight: 500;
       box-shadow: var(--shadow-sm);
     }
-
     .card {
       background: var(--card);
       border-radius: var(--radius);
@@ -64,16 +61,15 @@
       padding: 24px 20px;
       margin-bottom: 20px;
     }
-    
-    .card h2 { 
-      margin: 0 0 12px; 
-      font-size: 16px; 
+   
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 16px;
       font-weight: 700;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-
     textarea {
       width: 100%;
       box-sizing: border-box;
@@ -89,17 +85,16 @@
       outline: none;
       transition: all 0.2s;
     }
-    textarea:focus { 
-      border-color: var(--primary); 
+    textarea:focus {
+      border-color: var(--primary);
       background: #ffffff;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); 
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
     textarea::placeholder { color: #94a3b8; }
-
-    .btnbar { 
-      display: flex; 
-      gap: 10px; 
-      margin-top: 16px; 
+    .btnbar {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
     }
     button {
       appearance: none;
@@ -111,7 +106,7 @@
       cursor: pointer;
       font-weight: 600;
       font-size: 15px;
-      display: inline-flex; 
+      display: inline-flex;
       justify-content: center;
       align-items: center;
       gap: 6px;
@@ -127,7 +122,6 @@
     }
     button.primary:hover { background: var(--primary-hover); }
     button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
     /* 빙글빙글 로딩 애니메이션 */
     .spinner {
       border: 3px solid rgba(0,0,0,0.1);
@@ -139,13 +133,12 @@
       display: none; /* 평소엔 숨김 */
     }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
     .status {
       margin-top: 16px;
       font-size: 13px;
       color: var(--muted);
-      display: flex; 
-      align-items: center; 
+      display: flex;
+      align-items: center;
       justify-content: center;
       gap: 8px;
       font-weight: 500;
@@ -154,15 +147,13 @@
     .dot.ok { background: #10b981; }
     .dot.warn { background: #f59e0b; }
     .dot.bad { background: #ef4444; }
-
     .divider {
       height: 1px;
       background: var(--border);
       margin: 24px 0;
     }
-
     .out { margin-top: 12px; display: flex; flex-direction: column; gap: 12px; }
-    
+   
     /* 성경구절 & 기도문 공통 예쁜 배경 */
     .verse {
       background: #f8fafc;
@@ -173,10 +164,8 @@
     .ref { font-weight: 800; color: var(--primary); font-size: 16px; margin-bottom: 8px; }
     .text { font-size: 15px; line-height: 1.6; color: var(--text); margin-bottom: 12px; font-weight: 500; white-space: pre-wrap; }
     .why { color: #475569; line-height: 1.6; font-size: 14px; background: #ffffff; padding: 12px; border-radius: 12px; margin-top: 8px;}
-
     .actions { display: flex; gap: 10px; margin-top: 16px; }
     .actions button { padding: 12px; font-size: 14px; background: #f1f5f9; border: none; color: #475569; }
-
     .toast {
       position: fixed;
       left: 50%;
@@ -193,7 +182,6 @@
       transition: all 0.3s ease;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
     @media (max-width: 380px) {
       .btnbar { flex-direction: column; }
       button { width: 100%; }
@@ -201,55 +189,44 @@
     }
   </style>
 </head>
-
 <body>
   <div class="wrap">
     <div class="hero">
-      <h1>🙏 마음을 잇는 기도</h1>
-      <div class="pill">🔒 안심하세요! 작성하신 고민은 서버에 절대 저장되지 않아요.</div>
+      <h1>🙏 말씀 기도</h1>
+      <div class="pill">🔒 안심하세요! 작성하신 내용은 서버에 저장되지 않아요.</div>
     </div>
-
     <div class="card">
       <h2>🕊️ 나의 고민/기도제목</h2>
       <textarea id="inputText" placeholder="예) 요즘 선택을 앞두고 두려움이 큽니다. 가족에게 말이 날카로워져서 마음이 무겁습니다. 평안을 얻고 싶어요."></textarea>
-
       <div class="btnbar">
         <button class="primary" id="btnGo">📖 추천받기</button>
         <button id="btnSample">✨ 예시</button>
         <button id="btnClear">🧹 지우기</button>
       </div>
-
       <div class="status" id="status">
         <span class="spinner" id="loadingSpinner"></span>
         <span class="dot" id="statusDot"></span>
         <span id="statusText">말씀과 기도를 기다리고 있어요</span>
       </div>
-
       <div class="divider"></div>
-
       <h2>📖 추천 성경 구절</h2>
       <div class="out" id="outputVerses">
         <div class="verse"><div class="why" style="background:transparent; padding:0; border:none;">아직 결과가 없습니다.</div></div>
       </div>
-
       <div class="actions">
         <button id="btnCopyAll" disabled>📋 결과 전체 복사하기</button>
       </div>
-
       <div class="divider"></div>
-
       <h2>🙏 기도문</h2>
       <div class="out" id="outputPrayer">
         <div class="verse"><div class="why" style="background:transparent; padding:0; border:none;">아직 결과가 없습니다.</div></div>
       </div>
     </div>
+    <div style="text-align: center; margin-top: 20px; font-size: 14px; color: var(--muted);">문의: bmchan1231@gmail.com</div>
   </div>
-
   <div class="toast" id="toast">복사되었습니다!</div>
-
 <script>
   const WORKER_BASE = "https://bible-helper.hdh1231.workers.dev";
-
   const el = (id) => document.getElementById(id);
   const inputText = el("inputText");
   const statusDot = el("statusDot");
@@ -258,14 +235,11 @@
   const outputVerses = el("outputVerses");
   const outputPrayer = el("outputPrayer");
   const toast = el("toast");
-
   const btnGo = el("btnGo");
   const btnSample = el("btnSample");
   const btnClear = el("btnClear");
   const btnCopyAll = el("btnCopyAll");
-
   let latestPayload = null;
-
   function setStatus(kind, text, isLoading = false){
     if (isLoading) {
       statusDot.style.display = "none";
@@ -277,23 +251,22 @@
     }
     statusText.textContent = text;
   }
-  
+ 
   function escapeHtml(s){
     return (s ?? "").toString().replace(/[&<>"']/g, (c)=>({
       "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
     }[c]));
   }
-  
+ 
   function showToast(msg){
     toast.textContent = msg;
     toast.classList.add("show");
     setTimeout(()=>toast.classList.remove("show"), 1500);
   }
-
   function renderAll(data){
     const recs = data?.recommendations || [];
     outputVerses.innerHTML = "";
-    
+   
     if(!recs.length){
       outputVerses.innerHTML = `<div class="verse"><div class="why" style="background:transparent; padding:0; border:none;">결과가 비어 있습니다. 입력을 조금 더 구체화해 주세요.</div></div>`;
     } else {
@@ -309,10 +282,9 @@
         `);
       });
     }
-
     const prayer = (data?.prayer_text || "").trim();
     outputPrayer.innerHTML = "";
-    
+   
     if(!prayer){
       outputPrayer.innerHTML = `<div class="verse"><div class="why" style="background:transparent; padding:0; border:none;">기도문 결과가 비어 있습니다.</div></div>`;
     } else {
@@ -323,15 +295,12 @@
         </div>
       `;
     }
-
     const ok = recs.length && prayer.length;
     btnCopyAll.disabled = !ok;
   }
-
   function buildAllText(data){
     const recs = data?.recommendations || [];
     const prayer = (data?.prayer_text || "").trim();
-
     let s = "[추천 성경 구절]\n\n";
     recs.forEach((it) => {
       s += `📌 ${it.reference}\n`;
@@ -340,13 +309,10 @@
       if (it.application) s += `- 실천: ${it.application}\n`;
       s += "\n";
     });
-
     s += "------------------\n\n[나를 위한 기도문]\n\n";
     s += prayer;
-
     return s.trim();
   }
-
   async function postJSON(url, payload){
     const res = await fetch(url, {
       method:"POST",
@@ -359,12 +325,10 @@
     }
     return await res.json();
   }
-
   btnSample.addEventListener("click", () => {
     inputText.value = `요즘 마음이 계속 불안합니다.\n중요한 결정을 앞두고 확신이 없고, 실패할까 두렵습니다.\n하나님 앞에서 다시 평안과 지혜를 얻고 싶습니다.`;
     inputText.focus();
   });
-
   btnClear.addEventListener("click", () => {
     inputText.value = "";
     latestPayload = null;
@@ -373,7 +337,6 @@
     btnCopyAll.disabled = true;
     setStatus("", "말씀과 기도를 기다리고 있어요", false);
   });
-
   btnGo.addEventListener("click", async () => {
     const text = inputText.value.trim();
     if(!text){
@@ -381,21 +344,18 @@
       inputText.focus();
       return;
     }
-
     btnGo.disabled = true;
     btnCopyAll.disabled = true;
     // 로딩 중일 때는 true를 줘서 빙글빙글 아이콘 띄우고, 감성 문구 출력!
     setStatus("", "말씀을 찾고, 기도를 적고 있어요...", true);
-
     try{
       const systemPrompt = `너는 따뜻한 기독교 목회자야. 사용자의 고민(기도제목)을 듣고, 가장 알맞은 성경 구절과 기도문을 아래 JSON 규칙에 맞게 작성해줘.
-
       [절대 지켜야 할 규칙]
-      1. 토큰 낭비를 막기 위해 10줄이상 안넘게해줘.
+      1. 토큰 낭비를 막기 위해 10줄이상 안넘게해줘. 기도문은 적당히 길게 써줘.
       2. 기도문(prayer_text)은 구절 추천한 구절을 이용해서 기도해.
       3. 구절 추천(recommendations)은 고민,기도제목과 관련 있는 것으로 1~3개만 해. (해시태그 절대 금지)
-      4. 본문(text)과 이유(reason), 적용(application)도 길게 쓰지 마.
-      
+      4. 본문(text)과 이유(reason), 적용(application)는 길게 쓰지 마.
+     
       {
         "recommendations": [
           {
@@ -409,19 +369,16 @@
         "references": ["시편 23:1"]
       }
       반드시 마크다운 기호 없이 순수한 JSON 형식으로만 응답해.`;
-
-      const response = await postJSON(`${WORKER_BASE}/ai`, { 
-        system: systemPrompt, 
-        prompt: text 
+      const response = await postJSON(`${WORKER_BASE}/ai`, {
+        system: systemPrompt,
+        prompt: text
       });
-
       const cleanText = response.text.replace(/```json/g, '').replace(/```/g, '').trim();
       const data = JSON.parse(cleanText);
-
       latestPayload = data;
       renderAll(data);
       setStatus("ok","완성되었습니다! ✨", false);
-      
+     
     }catch(err){
       console.error(err);
       setStatus("bad","오류가 발생했습니다 😢", false);
@@ -432,7 +389,6 @@
       btnGo.disabled = false;
     }
   });
-
   btnCopyAll.addEventListener("click", async () => {
     if(!latestPayload) return;
     try{
@@ -445,6 +401,3 @@
 </script>
 </body>
 </html>
-
-
-
